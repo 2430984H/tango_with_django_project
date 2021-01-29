@@ -8,6 +8,7 @@ from rango.forms import PageForm
 from django.shortcuts import redirect
 from django.urls import reverse
 
+
 def index(request):
     # Query the database for a list of ALL categories currently stored.
     # Order the categories by the number of likes in descending order.
