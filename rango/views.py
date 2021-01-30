@@ -13,11 +13,7 @@ from datetime import datetime
 
 
 def index(request):
-    # Query the database for a list of ALL categories currently stored.
-    # Order the categories by the number of likes in descending order.
-    # Retrieve the top 5 only -- or all if less than 5.
-    # Place the list in our context_dict dictionary (with our boldmessage!)
-    # that will be passed to the template engine.
+
     category_list = Category.objects.order_by('-likes')[:5]
     page_list = Page.objects.order_by('-views')[:5]
 
@@ -77,7 +73,6 @@ def add_page(request, category_name_slug):
     except Category.DoesNotExist:
         category = None
 
-    # You cannot add a page to a Category that does not exist... DM
     if category is None:
         return redirect('/rango/')
 
@@ -95,7 +90,7 @@ def add_page(request, category_name_slug):
 
                 return redirect(reverse('rango:show_category', kwargs={'category_name_slug': category_name_slug}))
         else:
-            print(form.errors)  # This could be better done; for the purposes of TwD, this is fine. DM.
+            print(form.errors)
 
     context_dict = {'form': form, 'category': category}
     return render(request, 'rango/add_page.html', context=context_dict)
